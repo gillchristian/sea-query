@@ -1759,6 +1759,21 @@ fn select_pgtrgm_word_similarity() {
 }
 
 #[test]
+fn collate() {
+    assert_eq!(
+        Query::select()
+            .column(Font::Name)
+            .from(Font::Table)
+            .and_where(Expr::col(Font::Name).binary(
+                PgBinOper::ILike,
+                Expr::value("foo").binary(PgBinOper::Collate, Expr::cust(r#""default""#))
+            ))
+            .to_string(PostgresQueryBuilder),
+        r#"SELECT "name" FROM "font" WHERE "name" ILIKE ('foo' COLLATE ("default"))"#
+    );
+}
+
+#[test]
 fn select_pgtrgm_strict_word_similarity() {
     assert_eq!(
         Query::select()

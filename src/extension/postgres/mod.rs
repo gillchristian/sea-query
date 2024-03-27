@@ -37,6 +37,7 @@ pub enum PgBinOper {
     Regex,
     /// `~*`. Regex operator with case insensitive matching.
     RegexCaseInsensitive,
+    Collate,
 }
 
 impl From<PgBinOper> for BinOper {

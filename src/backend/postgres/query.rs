@@ -90,6 +90,7 @@ impl QueryBuilder for PostgresQueryBuilder {
                     PgBinOper::CastJsonField => "->>",
                     PgBinOper::Regex => "~",
                     PgBinOper::RegexCaseInsensitive => "~*",
+                    PgBinOper::Collate => "COLLATE",
                 }
             )
             .unwrap(),
